@@ -35,6 +35,11 @@ Matrix<int> Board::get_matrix_board() const
 	return this->matrix_board;
 }
 
+int Board::get_value_in_position(int x, int y) const
+{
+	return this->matrix_board.at(x).at(y);
+}
+
 void Board::set_dimension_x(int _dimension_x)
 {
 	this->dimension_x = _dimension_x;

@@ -2,6 +2,9 @@
 
 #include <iostream>
 #include <vector>
+#include <memory>
+
+#include "Player.hpp"
 
 template <typename T>
 using Matrix = std::vector<std::vector<T>>;
@@ -23,6 +26,7 @@ public:
 	int get_dimension_x() const;
 	int get_dimension_y() const;
 	Matrix<int> get_matrix_board() const;
+	int get_value_in_position(int x, int y) const;
 
 	void set_dimension_x(int _dimension_x);
 	void set_dimension_y(int _dimension_y);
