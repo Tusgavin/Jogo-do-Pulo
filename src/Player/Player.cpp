@@ -1,7 +1,5 @@
 #include "Player.hpp"
 
-#define DEBUG_PLAYER 0
-
 Player::Player(int _id, int _pos_x, int _pos_y)
 	: id(_id), player_position_x(_pos_x), player_position_y(_pos_y) 
 {
@@ -45,7 +43,7 @@ int Player::get_last_moviment() const
 
 void Player::set_is_winner(bool _is_winner)
 {
-	this->is_winner = _is_winner;
+	this->is_winner= _is_winner;
 } 
 
 void Player::set_player_position_x(int _pos_x)
@@ -72,5 +70,5 @@ void Player::print_player_info() const
 {
 	std::cout << "Player ID: " << this->id << std::endl;
 	std::cout << "Position X: " << this->player_position_x << ", Position Y: " << this->player_position_y << std::endl;
-	std::cout << "Is wiiner: " << this->is_winner << std::endl;
+	std::cout << "Is winner: " << this->is_winner << std::endl;
 }

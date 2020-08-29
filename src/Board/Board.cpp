@@ -1,7 +1,5 @@
 #include "Board.hpp"
 
-#define DEBUG_BOARD 0
-
 Board::Board(int _dimension_x, int _dimension_y) 
 	: dimension_x(_dimension_x),  dimension_y(_dimension_y) 
 {
@@ -42,12 +40,12 @@ int Board::get_value_in_position(int x, int y) const
 
 void Board::set_dimension_x(int _dimension_x)
 {
-	this->dimension_x = _dimension_x;
+	this->dimension_x =_dimension_x;
 }
 
 void Board::set_dimension_y(int _dimension_y)
 {
-	this->dimension_y = _dimension_y;
+	this->dimension_y =_dimension_y;
 }
 
 void Board::set_value_to_board(int x, int y, int value)

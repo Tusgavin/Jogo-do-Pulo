@@ -4,13 +4,12 @@
 
 #include "Board.hpp"
 #include "Player.hpp"
+#include "Game.hpp"
 
 #define DEBUG_MAIN 1
 
 int main(int argc, char * argv[]) 
 {
-	// ----- Tratamento da entrada -----
-
 	int dimension_x_i;
 	int dimension_y_i;
 	int amount_players_i;
@@ -20,10 +19,10 @@ int main(int argc, char * argv[])
 	std::cin >> dimension_y_i;
 	std::cin >> amount_players_i;
 
-	// ----- Cria Tabuleiro -----
-	Board * board = new Board(dimension_x_i, dimension_y_i);
+	// ----- Cria Tabuleiro e Novo Jogo -----
+	std::unique_ptr<Board> board(new Board(dimension_x_i, dimension_y_i));
 
-	// ----- Preenche valores -----
+	// ----- Preenche valores do Tabuleiro -----
 	for (auto i = 0; i < dimension_x_i; ++i)
 	{
 		for (auto j = 0; j < dimension_y_i; ++j)
@@ -33,9 +32,10 @@ int main(int argc, char * argv[])
 		}
 	}
 
-	// ----- Cria Players e preenche com dados -----
-	std::vector<std::unique_ptr<Player>> players;
+	// ----- Cira Novo Jogo movendo propriedade do ponteiro para board -----
+	std::unique_ptr<Game> game(new Game(std::move(board)));
 
+	// ----- Cria Players e preenche com dados -----
 	int position_player_x_i;
 	int position_player_y_i;
 
@@ -45,7 +45,7 @@ int main(int argc, char * argv[])
 		std::cin >> position_player_y_i; 
 
 		std::unique_ptr<Player> new_player = std::make_unique<Player>(i, position_player_x_i, position_player_y_i);
-		players.push_back(std::move(new_player));
+		game->add_player_to_game(std::move(new_player));
 	}
 
 
@@ -53,14 +53,11 @@ int main(int argc, char * argv[])
 
 	std::cout << "-----" << std::endl;
 	std::cout << "Printing Board" << std::endl;
-	board->print_board();
+	game->print_board();
 	std::cout << "-----" << std::endl;
 
 	std::cout << "-----" << std::endl;
 	std::cout << "Printing Players" << std::endl;
-	for (auto i = 0; i < amount_players_i; ++i) {
-		players.at(i)->print_player_info();
-	}
 	std::cout << "-----" << std::endl;
 
 #endif
