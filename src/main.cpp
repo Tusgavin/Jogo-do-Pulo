@@ -58,6 +58,10 @@ int main(int argc, char * argv[])
 
 	std::cout << "-----" << std::endl;
 	std::cout << "Printing Players" << std::endl;
+	for (auto i = 0; i < amount_players_i; ++i)
+	{
+		game->get_game_player(i)->print_player_info();
+	}
 	std::cout << "-----" << std::endl;
 
 #endif

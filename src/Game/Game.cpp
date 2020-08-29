@@ -28,3 +28,13 @@ void Game::print_players() const
 		(*it)->print_player_info();
 	}
 }
+
+Board * Game::get_game_board() const
+{
+	return this->game_board.get();
+}
+
+Player * Game::get_game_player(int _id) const
+{
+	return this->game_players.at(_id).get();
+}

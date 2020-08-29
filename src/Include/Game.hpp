@@ -22,4 +22,7 @@ public:
 
 	void print_board() const;
 	void print_players() const;
+
+	Board * get_game_board() const;
+	Player * get_game_player(int _id) const;
 };
