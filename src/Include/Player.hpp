@@ -16,6 +16,8 @@ private:
 
 	int last_moviment = -1;
 
+	Tree possible__moviments;
+
 public:
 
 	Player(int _id, int _pos_x, int _pos_y);
