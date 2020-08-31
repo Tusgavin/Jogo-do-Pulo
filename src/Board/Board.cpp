@@ -33,9 +33,9 @@ Matrix<int> Board::get_matrix_board() const
 	return this->matrix_board;
 }
 
-int Board::get_value_in_position(int x, int y) const
+int Board::get_value_in_position(int _x, int _y) const
 {
-	return this->matrix_board.at(x).at(y);
+	return this->matrix_board.at(_x).at(_y);
 }
 
 void Board::set_dimension_x(int _dimension_x)
@@ -48,9 +48,9 @@ void Board::set_dimension_y(int _dimension_y)
 	this->dimension_y =_dimension_y;
 }
 
-void Board::set_value_to_board(int x, int y, int value)
+void Board::set_value_to_board(int _x, int _y, int _value)
 {
-	this->matrix_board.at(x).at(y) = value;
+	this->matrix_board.at(_x).at(_y) = _value;
 }
 
 void Board::print_board() const

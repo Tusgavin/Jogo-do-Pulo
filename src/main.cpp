@@ -28,6 +28,7 @@ int main(int argc, char * argv[])
 		for (auto j = 0; j < dimension_y_i; ++j)
 		{
 			std::cin >> board_values_i;
+			std::unique_ptr<Board> board(new Board(dimension_x_i, dimension_y_i));
 			board->set_value_to_board(i, j, board_values_i);
 		}
 	}
@@ -48,6 +49,29 @@ int main(int argc, char * argv[])
 		game->add_player_to_game(std::move(new_player));
 	}
 
+	// ----- Loop principal -----
+	while (true)
+	{
+		// get ordem players
+		// para cada player
+		for (auto i = 0; i < amount_players_i; ++i)
+		{
+			Player * current_player = game->get_game_player(i);
+
+			//int current_position_x = current_player->get_player_position_x();
+			//int current_position_y = current_player->get_player_position_y();
+
+			//int current_value_on_board = game->game_board->get_value_in_position(current_position_x, current_position_y);
+			// calcula BFS
+			// anda com player
+			int new_pos_x = 1;
+			int new_pos_y = 1;
+			current_player->set_player_position_x(new_pos_x);
+			current_player->set_player_position_y(new_pos_y);
+			// checa se venceu
+		}
+	}
+
 
 #if DEBUG_MAIN
 
@@ -60,11 +84,12 @@ int main(int argc, char * argv[])
 	std::cout << "Printing Players" << std::endl;
 	for (auto i = 0; i < amount_players_i; ++i)
 	{
-		game->get_game_player(i)->print_player_info();
+		game->get_game_player(i)->set_player_position_y(10);
 	}
 	std::cout << "-----" << std::endl;
 
 #endif
+
 
 	return 0;
 }

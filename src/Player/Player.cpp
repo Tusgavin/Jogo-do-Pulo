@@ -72,3 +72,9 @@ void Player::print_player_info() const
 	std::cout << "Position X: " << this->player_position_x << ", Position Y: " << this->player_position_y << std::endl;
 	std::cout << "Is winner: " << this->is_winner << std::endl;
 }
+
+void Player::move_player(int _pos_x, int _pos_y)
+{
+	this->set_player_position_x(_pos_x);
+	this->set_player_position_y(_pos_y);
+}
