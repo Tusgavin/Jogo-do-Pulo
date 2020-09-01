@@ -12,7 +12,6 @@ Board::Board(int _dimension_x, int _dimension_y)
 	}
 
 	this->graph.resize(_dimension_x * _dimension_y);
-
 }
 
 Board::~Board() 
@@ -40,46 +39,9 @@ int Board::get_value_in_position(int _x, int _y) const
 	return this->matrix_board.at(_x).at(_y);
 }
 
-void Board::set_dimension_x(int _dimension_x)
-{
-	this->dimension_x =_dimension_x;
-}
-
-void Board::set_dimension_y(int _dimension_y)
-{
-	this->dimension_y =_dimension_y;
-}
-
 void Board::set_value_to_board(int _x, int _y, int _value)
 {
 	this->matrix_board.at(_x).at(_y) = _value;
-}
-
-void Board::print_board() const
-{
-	for (auto row = this->matrix_board.begin(); row != this->matrix_board.end(); ++row)
-	{
-		for (auto col = row->begin(); col != row->end(); ++col)
-		{
-			std::cout << (*col) << " ";
-		}
-
-		std::cout << std::endl;
-	}
-}
-
-void Board::print_graph() const
-{
-	for (auto i = this->graph.begin(); i != this->graph.end(); ++i)
-	{
-
-		for (auto j = i->begin(); j != i->end(); ++j)
-		{
-			std::cout << "(" << j->first << ", " << j->second << ")";
-		}
-
-		std::cout << std::endl;
-	}
 }
 
 void Board::populate_graph()
@@ -93,8 +55,11 @@ void Board::populate_graph()
 			int value = this->get_value_in_position(i, j);
 			
 			std::pair<int, int> position;
+
 			position.first = i;
 			position.second = j;
+
+			count_vertices = (((this->get_dimension_y())* i) + (1 + j) - 1);
 
 			if (value == 0)
 			{
@@ -107,11 +72,17 @@ void Board::populate_graph()
 				this->graph.at(count_vertices).push_back(position);
 			}
 
+			position.first = i;
+			position.second = j;
+
 			if (i + value < this->get_dimension_x())
 			{
 				position.first = i + value;
 				this->graph.at(count_vertices).push_back(position);
 			}
+
+			position.first = i;
+			position.second = j;
 
 			if (j - value >= 0)
 			{
@@ -119,11 +90,15 @@ void Board::populate_graph()
 				this->graph.at(count_vertices).push_back(position);
 			}
 
+			position.first = i;
+			position.second = j;
+
 			if (j + value < this->get_dimension_y())
 			{
 				position.second = j + value;
 				this->graph.at(count_vertices).push_back(position);
 			}
+
 
 			count_vertices++;
 		}
@@ -155,14 +130,11 @@ bool Board::BFS(std::pair<int, int> _position, int dist[], int pred[])
 	};
 
 	int index = formula(_position.first, _position.second, get_dimension_y());
-	//std::cout << "Index:" << index << std::endl;
 
 	visited[index] = true;
 	dist[index] = 0;
 
 	queue.push_back(_position);
-
-	//std::list<std::pair<int, int>>::iterator it;
 
 
 	while(!queue.empty())
@@ -171,11 +143,11 @@ bool Board::BFS(std::pair<int, int> _position, int dist[], int pred[])
 
 		int index2 = formula(temp_pair_1.first, temp_pair_1.second, get_dimension_y());
 
-		//std::cout << "[" << temp_pair_1.first << "," << temp_pair_1.second << "]" << std::endl;
 		queue.pop_front();
 
 		for (auto it = this->graph.at(index2).begin(); it != this->graph.at(index2).end(); ++it)
 		{	
+
 			int index3 = formula(it->first, it->second, get_dimension_y());
 
 			if (!visited[index3])
@@ -189,17 +161,23 @@ bool Board::BFS(std::pair<int, int> _position, int dist[], int pred[])
 				temp_pair_2.second = it->second;
 
 				queue.push_back(temp_pair_2);
+
+				if ((temp_pair_2.first == (get_dimension_x() - 1)) && (temp_pair_2.second == (get_dimension_y() - 1)))
+				{
+					return true;
+				}
+				
 			}
 		}
-
 	}
 
-	if ((temp_pair_1.first == (get_dimension_x() - 1)) && (temp_pair_1.second == (get_dimension_y() - 1)))
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+	return false;
+}
+
+int Board::get_value_matrix_by_abs_index(int _index) const
+{
+	int x = _index / get_dimension_y();
+	int y = _index % get_dimension_y();
+
+	return get_value_in_position(x, y);
 }
