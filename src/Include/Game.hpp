@@ -7,6 +7,7 @@
 #include "Board.hpp"
 #include "Player.hpp"
 
+
 class Game
 {
 private:
@@ -23,9 +24,6 @@ public:
 
 	void add_player_to_game(std::unique_ptr<Player> _player);
 
-	void print_board() const;
-	void print_players() const;
-
 	Board * get_game_board() const;
 	Player * get_game_player(int _id) const;
 
@@ -33,6 +31,5 @@ public:
 
 	bool check_winner(int _id);
 
-	void BFS();
-
+	void reset_players_id(int _amount_of_players);
 };

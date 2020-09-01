@@ -16,19 +16,6 @@ void Game::add_player_to_game(std::unique_ptr<Player> _player)
 	this->game_players.push_back(std::move(_player));
 }
 
-void Game::print_board() const
-{
-	this->game_board->print_board();
-}
-
-void Game::print_players() const
-{
-	for (auto it = this->game_players.begin(); it != this->game_players.end(); ++it)
-	{
-		(*it)->print_player_info();
-	}
-}
-
 Board * Game::get_game_board() const
 {
 	return this->game_board.get();
@@ -41,7 +28,7 @@ Player * Game::get_game_player(int _id) const
 
 void Game::sort_players_queue()
 {
-
+	std::sort(this->game_players.begin(), this->game_players.end(), Player::comp_by_last_moviment);
 }
 
 bool Game::check_winner(int _id)
@@ -60,7 +47,10 @@ bool Game::check_winner(int _id)
 	}
 }
 
-void Game::BFS()
+void Game::reset_players_id(int _amount_of_players)
 {
-
+	for (auto i = 0; i < _amount_of_players; ++i)
+	{
+		this->game_players.at(i)->set_id(i);
+	}
 }

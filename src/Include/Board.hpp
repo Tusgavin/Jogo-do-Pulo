@@ -3,8 +3,9 @@
 #include <iostream>
 #include <vector>
 #include <memory>
+#include <list>
+#include <algorithm>
 
-#include "Player.hpp"
 
 template <typename T>
 using Matrix = std::vector<std::vector<T>>;
@@ -18,6 +19,8 @@ private:
 
 	Matrix<int> matrix_board;
 
+	Matrix<std::pair<int, int>> graph;
+
 public:
 
 	Board(int _dimension_x, int _dimension_y);
@@ -30,9 +33,12 @@ public:
 
 	void set_dimension_x(int _dimension_x);
 	void set_dimension_y(int _dimension_y);
-
 	void set_value_to_board(int _x, int _y, int _value);
 
 	void print_board() const;
+	void print_graph() const;
 
+	void populate_graph();
+
+	bool BFS(std::pair<int, int> _position, int dist[], int pred[]);
 };
