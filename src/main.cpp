@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <memory>
+#include <chrono>
 
 #include "Board.hpp"
 #include "Player.hpp"
@@ -10,6 +11,8 @@
 
 int main(int argc, char * argv[]) 
 {
+	auto start_program = std::chrono::steady_clock::now();
+	
 	int dimension_x_i;
 	int dimension_y_i;
 	int amount_players_i;
@@ -209,6 +212,11 @@ int main(int argc, char * argv[])
 		}
 	}
 
+	auto end_program = std::chrono::steady_clock::now();
+
+	auto diff = end_program - start_program;
+
+	std::cout << std::chrono::duration <double, std::milli>(diff).count() << std::endl;
 
 	return 0;
 }
